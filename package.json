@@ -12,7 +12,9 @@
     "test:watch": "vitest",
     "lint": "tsc --noEmit"
   },
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.5",
     "@octokit/rest": "^22.0.0",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
+    "@vitest/coverage-v8": "^3.2.7",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
