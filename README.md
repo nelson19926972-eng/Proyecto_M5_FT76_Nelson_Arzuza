@@ -145,7 +145,3 @@ Los tests cubren inputs válidos e inválidos, operaciones Octokit mockeadas, cr
 - **404:** comprueba `owner/repo` y que el token tenga acceso al repositorio.
 - **403 o 429:** revisa permisos y límites de API; el retry cubre rate limiting temporal, no permisos insuficientes.
 - **No hay respuesta:** no ejecutes el servidor manualmente en una terminal esperando texto; MCP usa `stdio`. Revisa los logs de stderr del host.
-
-## Licencia
-
-MIT. Ver [LICENSE](LICENSE).
