@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/server.ts",
+    "inspect": "npm run build && npx @modelcontextprotocol/inspector node dist/server.js",
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
