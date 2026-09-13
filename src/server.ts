@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { z } from "zod";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 import { createGitHubClient } from "./github/client.js";
 import * as operations from "./github/operations.js";
 import { errorResponse, toAppError } from "./errors/index.js";
@@ -21,7 +22,13 @@ export function createServer(client = createGitHubClient()) {
   return server;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const isDirectRun = Boolean(
+  process.argv[1] &&
+  (path.resolve(fileURLToPath(import.meta.url)).toLowerCase() === path.resolve(process.argv[1]).toLowerCase() ||
+   import.meta.url === `file://${process.argv[1]}`)
+);
+
+if (isDirectRun) {
   const transport = new StdioServerTransport();
   createServer().connect(transport).catch((error) => { log("error", "MCP server failed to start", { message: error instanceof Error ? error.message : "unknown" }); process.exitCode = 1; });
 }
