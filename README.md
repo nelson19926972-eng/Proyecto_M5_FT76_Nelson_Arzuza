@@ -133,13 +133,13 @@ Los errores 429 y 5xx tienen hasta tres intentos con backoff exponencial; si Git
 npm run dev       # servidor en modo desarrollo con tsx
 npm run build     # compila a dist/
 npm run inspect   # abre MCP Inspector para probar las tools
-npm test          # ejecuta 13 tests unitarios
+npm test          # ejecuta la suite unitaria y de integración MCP
 npm run lint      # typecheck sin emitir archivos
 ```
 
 Para probar las tools visualmente, define `GITHUB_TOKEN` en `.env` y ejecuta `npm run inspect`. Se abrirá MCP Inspector en el navegador; selecciona la conexión local, pulsa **Connect** y usa **List Tools** para invocar cualquiera de las cinco tools. Las operaciones de creación modifican GitHub de verdad.
 
-Los tests cubren inputs válidos e inválidos, operaciones Octokit mockeadas, creación y actualización de archivos, 404, credenciales inválidas y errores de red.
+Los tests cubren inputs válidos e inválidos, el listado e invocación de tools mediante MCP, operaciones Octokit mockeadas, creación y actualización de archivos, 404, credenciales inválidas, rate limiting y errores de red.
 
 ## Licencia
 

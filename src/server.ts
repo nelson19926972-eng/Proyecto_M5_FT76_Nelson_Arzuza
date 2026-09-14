@@ -14,11 +14,11 @@ export function createServer(client = createGitHubClient()) {
     try { const result = await action(); return { content: [{ type: "text" as const, text: JSON.stringify(result) }] }; }
     catch (error) { const appError = toAppError(error); log("error", appError.message, { kind: appError.kind, status: appError.status }); return errorResponse(appError); }
   };
-  server.registerTool("create_repository", { description: "Crea un repositorio para el usuario autenticado", inputSchema: schemas.createRepositorySchema.shape }, (input) => run(async () => (await operations.createRepository(client, input)).data));
-  server.registerTool("create_issue", { description: "Abre un issue en un repositorio", inputSchema: schemas.createIssueSchema.shape }, (input) => run(async () => (await operations.createIssue(client, input)).data));
-  server.registerTool("list_repositories", { description: "Lista los repositorios del usuario autenticado", inputSchema: schemas.listRepositoriesSchema.shape }, (input) => run(async () => (await operations.listRepositories(client, input)).data));
-  server.registerTool("create_commit", { description: "Crea o actualiza un archivo mediante un commit", inputSchema: schemas.createCommitSchema.shape }, (input) => run(async () => (await operations.createCommit(client, input)).data));
-  server.registerTool("list_issues", { description: "Lista issues de un repositorio", inputSchema: schemas.listIssuesSchema.shape }, (input) => run(async () => (await operations.listIssues(client, input)).data));
+  server.registerTool("create_repository", { description: "Crea un repositorio nuevo para el usuario autenticado. Usa esta tool cuando el usuario pida crear un proyecto en GitHub; permite elegir nombre, descripción y visibilidad.", inputSchema: schemas.createRepositorySchema.shape }, (input) => run(async () => (await operations.createRepository(client, input)).data));
+  server.registerTool("create_issue", { description: "Abre un issue en un repositorio existente. Requiere owner, repo y title; puede incluir descripción y etiquetas.", inputSchema: schemas.createIssueSchema.shape }, (input) => run(async () => (await operations.createIssue(client, input)).data));
+  server.registerTool("list_repositories", { description: "Lista los repositorios del usuario autenticado, filtrados por visibilidad y ordenados por actualización. No requiere owner ni repo.", inputSchema: schemas.listRepositoriesSchema.shape }, (input) => run(async () => (await operations.listRepositories(client, input)).data));
+  server.registerTool("create_commit", { description: "Crea o actualiza un archivo en un repositorio existente y genera un commit. Usa una ruta relativa y proporciona el contenido textual y el mensaje del commit.", inputSchema: schemas.createCommitSchema.shape }, (input) => run(async () => (await operations.createCommit(client, input)).data));
+  server.registerTool("list_issues", { description: "Lista los issues de un repositorio existente. Permite filtrar por estado y limitar la cantidad de resultados.", inputSchema: schemas.listIssuesSchema.shape }, (input) => run(async () => (await operations.listIssues(client, input)).data));
   return server;
 }
 
