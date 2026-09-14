@@ -68,6 +68,7 @@ En `src/errors/index.ts` se clasifican los errores de la aplicación en:
 - `ValidationError`
 - `GitHubAPIError`
 - `AuthenticationError`
+- `RateLimitError`
 - `NetworkError`
 
 Esto permite transformar errores técnicos de GitHub en mensajes comprensibles para el agente y para el usuario final.
@@ -80,6 +81,8 @@ Además, se incorpora soporte de logging y utilidades de retry en:
 - `src/utils/retry.ts`
 
 La implementación asegura que ningún log vaya a stdout, respetando el contrato de MCP.
+
+Los errores 429 y los 5xx transitorios se reintentan hasta el máximo configurado mediante `RETRY_MAX_ATTEMPTS`. El backoff es exponencial y, cuando GitHub envía `retry-after`, se espera ese tiempo antes del siguiente intento. Los errores no transitorios, como un 404, no se reintentan.
 
 ## Arquitectura de la solución
 
@@ -119,10 +122,12 @@ npm run dev
 La rama incluye pruebas unitarias para cubrir:
 
 - inputs válidos e inválidos
+- listado e invocación de tools mediante MCP con transporte en memoria
 - operaciones mockeadas de Octokit
 - creación y actualización de archivos
 - errores 404
 - credenciales inválidas
+- rate limiting y política de reintentos
 - fallos de red
 
 La suite se ejecuta con Vitest:
