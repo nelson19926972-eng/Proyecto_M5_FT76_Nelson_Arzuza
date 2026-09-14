@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "description": "MCP server in TypeScript for common GitHub operations.",
+  "license": "MIT",
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/server.ts",

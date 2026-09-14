@@ -141,6 +141,10 @@ Para probar las tools visualmente, define `GITHUB_TOKEN` en `.env` y ejecuta `np
 
 Los tests cubren inputs válidos e inválidos, operaciones Octokit mockeadas, creación y actualización de archivos, 404, credenciales inválidas y errores de red.
 
+## Licencia
+
+Este proyecto está licenciado bajo la [Licencia MIT](LICENSE).
+
 ## Troubleshooting
 
 - **No aparece ninguna tool:** ejecuta `npm run build`, revisa la ruta a `dist/server.js` y reinicia Antigravity.
